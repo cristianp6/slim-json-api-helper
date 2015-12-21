@@ -1,26 +1,18 @@
 <?php
-require_once 'src/JsonHelpers/JsonRequest.php';
+use JsonHelpers\Request as JsonRequest;
 
-use JsonHelpers\Request as JSONRequest;
-
+/**
+ * @group library
+ */
 class JsonRequestTest extends \PHPUnit_Framework_TestCase
 {
 
-  /**
-   * @var JSONRequest
-   */
-  private $jsonRequest;
 
-  public function setUp()
+  public function testValidConstuctor()
   {
-    parent::setUp();
+    $jsonRequest = new JsonRequest();
 
-    $this->jsonRequest = new JSONRequest();
+    $this->assertInstanceOf("\JsonHelpers\Request", $jsonRequest);
   }
 
-  public function testBasicRequest()
-  {
-
-    $this->assertInstanceOf("\JsonHelpers\Request", $this->jsonRequest);
-  }
 }
