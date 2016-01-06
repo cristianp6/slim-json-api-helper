@@ -20,62 +20,14 @@ slim-json-helpers
 use Slim\Http\Request as Request;
 use JsonHelpers\Renderer as JsonRenderer;
 
+$app = new \Slim\App($settings);
 $container = $app->getContainer();
 
-$container['view'] = function ($c) {
-  $view = new JsonRenderer();
+// register the json response and error handlers
+$jsonHelpers = new JsonHelpers\JsonHelpers($app->getContainer());
+$jsonHelpers->registerResponseView();
+$jsonHelpers->registerErrorHandlers();
 
-  return $view;
-};
-
-$container['notAllowedHandler'] = function ($c) {
-  return function ($request, $response, $methods) use ($c) {
-
-    $view = new JsonRenderer();
-    return $view->render($response, 405,
-        ['error_code' => 'not_allowed', 'error_message' => 'Method must be one of: ' . implode(', ', $methods)]
-    );
-
-  };
-};
-
-$container['notFoundHandler'] = function ($c) {
-  return function ($request, $response) use ($c) {
-    $view = new JsonRenderer();
-
-    return $view->render($response, 404, ['error_code' => 'not_found', 'error_message' => 'Not Found']);
-  };
-};
-
-$container['errorHandler'] = function ($c) {
-  return function ($request, $response, $exception) use ($c) {
-
-    $settings = $c->settings;
-    $view = new JsonRenderer();
-
-    $errorCode = 500;
-    if (is_numeric($exception->getCode()) && $exception->getCode() > 300  && $exception->getCode() < 600) {
-      $errorCode = $exception->getCode();
-    }
-
-    if ($settings['displayErrorDetails'] == true) {
-      $data = [
-          'error_code' => $errorCode,
-          'error_message' => $exception->getMessage(),
-          'file' => $exception->getFile(),
-          'line' => $exception->getLine(),
-          'trace' => explode("\n", $exception->getTraceAsString()),
-      ];
-    } else {
-      $data = [
-          'error_code' => $errorCode,
-          'error_message' => $exception->getMessage()
-      ];
-    }
-
-    return $view->render($response, $errorCode, $data);
-  };
-};
 
 $this->post('/users', function (Request $request, Response $response, $args)
 {
