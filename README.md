@@ -17,7 +17,7 @@ slim-json-helpers
 
 ```php
 
-use JsonHelpers\Request as JsonRequest;
+use Slim\Http\Request as Request;
 use JsonHelpers\Renderer as JsonRenderer;
 
 $container = $app->getContainer();
@@ -26,12 +26,6 @@ $container['view'] = function ($c) {
   $view = new JsonRenderer();
 
   return $view;
-};
-
-$container['jsonRequest'] = function ($c) {
-  $jsonRequest = new JsonRequest();
-
-  return $jsonRequest;
 };
 
 $container['notAllowedHandler'] = function ($c) {
@@ -85,9 +79,7 @@ $container['errorHandler'] = function ($c) {
 
 $this->post('/users', function (Request $request, Response $response, $args)
 {
-  $jsonRequest = $this->jsonRequest->setRequest($request);
-
-  $user_id = $jsonRequest->getRequestParam('user_id');
+  $user_id = $request->getParam('user_id');
   
    $data = [
         'user_id' => $user_id
