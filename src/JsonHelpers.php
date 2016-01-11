@@ -54,8 +54,8 @@ class JsonHelpers {
             return function ($request, $response, $methods) use ($c) {
 
                 $view = new JsonRenderer();
-                return $view->render($response, 405,
-                    ['error_code' => 'not_allowed', 'error_message' => 'Method must be one of: ' . implode(', ', $methods)]
+                return $view->render($response,
+                    ['error_code' => 'not_allowed', 'error_message' => 'Method must be one of: ' . implode(', ', $methods), 405]
                 );
             };
         };
@@ -64,7 +64,7 @@ class JsonHelpers {
             return function ($request, $response) use ($c) {
                 $view = new JsonRenderer();
 
-                return $view->render($response, 404, ['error_code' => 'not_found', 'error_message' => 'Not Found']);
+                return $view->render($response, ['error_code' => 'not_found', 'error_message' => 'Not Found'], 404);
             };
         };
 
@@ -74,14 +74,14 @@ class JsonHelpers {
                 $settings = $c->settings;
                 $view = new JsonRenderer();
 
-                $errorCode = 500;
+                $error_code = 500;
                 if (is_numeric($exception->getCode()) && $exception->getCode() > 300  && $exception->getCode() < 600) {
-                    $errorCode = $exception->getCode();
+                    $error_code = $exception->getCode();
                 }
 
                 if ($settings['displayErrorDetails'] == true) {
                     $data = [
-                        'error_code' => $errorCode,
+                        'error_code' => $error_code,
                         'error_message' => $exception->getMessage(),
                         'file' => $exception->getFile(),
                         'line' => $exception->getLine(),
@@ -89,12 +89,12 @@ class JsonHelpers {
                     ];
                 } else {
                     $data = [
-                        'error_code' => $errorCode,
+                        'error_code' => $error_code,
                         'error_message' => $exception->getMessage()
                     ];
                 }
 
-                return $view->render($response, $errorCode, $data);
+                return $view->render($response, $data, $error_code);
             };
         };
     }

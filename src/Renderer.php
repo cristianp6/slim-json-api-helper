@@ -2,6 +2,7 @@
 namespace JsonHelpers;
 
 use \Psr\Http\Message\ResponseInterface;
+use \Slim\Http\Response;
 
 /**
  * JsonRenderer
@@ -12,21 +13,14 @@ class Renderer
 {
   /**
    *
-   * @param ResponseInterface $response
-   * @param int $statusCode
+   * @param Response $response
    * @param array $data
+   * @param int $status
    *
    * @return ResponseInterface
-   *
-   * @throws \InvalidArgumentException
-   * @throws \RuntimeException
    */
-  public function render(ResponseInterface $response, $statusCode = 200, array $data = [])
+  public function render(Response $response, array $data = [], $status = 200)
   {
-    $newResponse = $response->withHeader('Content-Type', 'application/json');
-    $newResponse = $newResponse->withStatus($statusCode);
-    $newResponse->getBody()->write(json_encode($data));
-
-    return $newResponse;
+    return $response->withJson($data, $status);
   }
 }
