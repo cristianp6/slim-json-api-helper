@@ -37,7 +37,7 @@ $this->post('/users', function (Request $request, Response $response, $args)
         'user_id' => $user_id
     ];
 
-    $response = $this->view->render($response, 200, $data);
+    $response = $this->view->render($response, $data, 200);
     return $response;
 
   });
