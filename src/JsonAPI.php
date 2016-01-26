@@ -6,7 +6,7 @@ use Interop\Container\ContainerInterface;
 use JsonAPI\Renderer as JsonRenderer;
 use InvalidArgumentException;
 
-class JsonHelpers
+class JsonAPI
 {
     /**
      * Container.
@@ -36,9 +36,9 @@ class JsonHelpers
     }
 
     /**
-     * register json response view.
+     * register json response result.
      */
-    protected function registerResponseView()
+    public function registerResponseView()
     {
         $this->container['result'] = function ($c) {
             $result = new JsonRenderer();
@@ -50,11 +50,10 @@ class JsonHelpers
     /**
      * register all error handler (not found, not allowed, and generic error handler).
      */
-    protected function registerErrorHandlers()
+    public function registerErrorHandlers()
     {
         $this->container['notAllowedHandler'] = function ($c) {
             return function ($request, $response, $methods) use ($c) {
-
                 $result = new JsonRenderer();
 
                 $result->errors[] = [
@@ -81,16 +80,16 @@ class JsonHelpers
 
         $this->container['errorHandler'] = function ($c) {
             return function ($request, $response, $exception) use ($c) {
-
-                $settings = $c->settings;
                 $result = new JsonRenderer();
 
-                $error_code = 500;
-                if (is_numeric($exception->getCode()) && $exception->getCode() > 300  && $exception->getCode() < 600) {
+                $error_code = $exception->getCode();
+                if (is_numeric($error_code) && $error_code > 300 && $error_code < 600) {
                     $error_code = $exception->getCode();
+                } else {
+                    $error_code = 500;
                 }
 
-                if ($settings['displayErrorDetails'] === true) {
+                if ($c->settings['displayErrorDetails'] === true) {
                     $result->errors[] = [
                         'code' => $error_code,
                         'message' => $exception->getMessage(),

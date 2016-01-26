@@ -8,17 +8,15 @@ use Slim\Http\Response;
 /**
  * JsonRenderer.
  *
- * Render JSON view into a PSR-7 Response object
+ * Render JSON result into a PSR-7 Response object
  */
 class Renderer
 {
-    protected $result;
-
     public function __construct()
     {
-        $this->result = new \StdClass();
-        $this->result->data = new \StdClass();
-        $this->result->errors = [];
+        // Create the default top-level members
+        $this->data = new \StdClass();
+        $this->errors = [];
     }
 
     /**
@@ -29,6 +27,11 @@ class Renderer
      */
     public function render(Response $response, $status = 200)
     {
-        return $response->withJson($this->result, $status);
+        // Put the default top-level members into the $result object
+        $result = new \StdClass();
+        $result->data = $this->data;
+        $result->errors = $this->errors;
+
+        return $response->withJson($result, $status);
     }
 }
