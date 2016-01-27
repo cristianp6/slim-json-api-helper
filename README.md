@@ -19,7 +19,7 @@ $container = $app->getContainer();
 
 // register the json response and error handlers
 $jsonApiHelper = new JsonApiHelper\JsonApiHelper($app->getContainer());
-$jsonApiHelper->registerResponseView();
+$jsonApiHelper->registerResponseResult();
 $jsonApiHelper->registerErrorHandlers();
 
 

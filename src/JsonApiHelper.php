@@ -37,10 +37,10 @@ class JsonApiHelper
     /**
      * register json response result.
      */
-    public function registerResponseView()
+    public function registerResponseResult()
     {
         $this->container['result'] = function ($c) {
-            $result = new JsonApiRenderer();
+            $result = new Renderer();
 
             return $result;
         };
