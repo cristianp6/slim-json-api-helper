@@ -1,6 +1,11 @@
 slim-json-api-helper
 =======
 
+[![Latest Stable Version](https://poser.pugx.org/cristianp6/slim-json-api-helper/version.png)](https://packagist.org/packages/cristianp6/slim-json-api-helper)
+[![Composer Downloads](https://poser.pugx.org/cristianp6/slim-json-api-helper/d/total.png)](https://packagist.org/packages/cristianp6/slim-json-api-helper)
+[![Build Status](https://travis-ci.org/cristianp6/slim-json-api-helper.png?branch=master)](https://travis-ci.org/cristianp6/slim-json-api-helper)
+[![Code Coverage](https://scrutinizer-ci.com/g/cristianp6/slim-json-api-helper/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/cristianp6/slim-json-api-helper/?branch=master)
+[![License](https://poser.pugx.org/cristianp6/slim-json-api-helper/license.svg)](https://packagist.org/packages/cristianp6/slim-json-api-helper)
 
 ## Requirements ##
 
