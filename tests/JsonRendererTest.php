@@ -26,6 +26,6 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($response->getStatusCode(), 200);
         $this->assertEquals($response->getHeaderLine('Content-Type'), 'application/json;charset=utf-8');
-        $this->assertTrue($response->getBody() === json_encode($jsonRenderer)); // TODO: response->getBody() is empty!
+        $this->assertEquals($response->getBody(), json_encode($jsonRenderer));
     }
 }
