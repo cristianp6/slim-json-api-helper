@@ -1,12 +1,11 @@
 <?php
 
-namespace JsonAPI;
+namespace JsonApiHelper;
 
 use Interop\Container\ContainerInterface;
-use JsonAPI\Renderer as JsonRenderer;
 use InvalidArgumentException;
 
-class JsonAPI
+class JsonApiHelper
 {
     /**
      * Container.
@@ -41,7 +40,7 @@ class JsonAPI
     public function registerResponseView()
     {
         $this->container['result'] = function ($c) {
-            $result = new JsonRenderer();
+            $result = new JsonApiRenderer();
 
             return $result;
         };
@@ -54,7 +53,7 @@ class JsonAPI
     {
         $this->container['notAllowedHandler'] = function ($c) {
             return function ($request, $response, $methods) use ($c) {
-                $result = new JsonRenderer();
+                $result = new Renderer();
 
                 $result->errors[] = [
                     'code' => 405,
@@ -67,7 +66,7 @@ class JsonAPI
 
         $this->container['notFoundHandler'] = function ($c) {
             return function ($request, $response) use ($c) {
-                $result = new JsonRenderer();
+                $result = new Renderer();
 
                 $result->errors[] = [
                     'code' => 404,
@@ -80,7 +79,7 @@ class JsonAPI
 
         $this->container['errorHandler'] = function ($c) {
             return function ($request, $response, $exception) use ($c) {
-                $result = new JsonRenderer();
+                $result = new Renderer();
 
                 $error_code = $exception->getCode();
                 if (is_numeric($error_code) && $error_code > 300 && $error_code < 600) {

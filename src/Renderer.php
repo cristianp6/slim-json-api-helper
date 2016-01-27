@@ -1,14 +1,14 @@
 <?php
 
-namespace JsonAPI;
+namespace JsonApiHelper;
 
 use Psr\Http\Message\ResponseInterface;
 use Slim\Http\Response;
 
 /**
- * JsonRenderer.
+ * JsonApiRenderer.
  *
- * Render JSON result into a PSR-7 Response object
+ * Render JSON result into a PSR-7 Response object according to jsonapi.org conventions
  */
 class Renderer
 {
@@ -27,7 +27,7 @@ class Renderer
      */
     public function render(Response $response, $status = 200)
     {
-        // Put the default top-level members into the $result object
+        // Put the default top-level members into $result object
         $result = new \StdClass();
         $result->data = $this->data;
         $result->errors = $this->errors;

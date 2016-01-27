@@ -1,6 +1,6 @@
 {
-  "name" : "cristianp6/slim-json-api",
-  "description" : "Slim3 JSON API Request & Response Helpers inspired by jsonapi.org",
+  "name" : "cristianp6/slim-json-api-helper",
+  "description" : "Slim3 JSON API Request & Response Helper inspired by jsonapi.org",
   "type" : "library",
   "authors" : [
     {
@@ -15,7 +15,7 @@
     }
   ],
   "keywords" : [ "slim", "json", "api" ],
-  "homepage" : "https://github.com/cristianp6/slim-json-api",
+  "homepage" : "https://github.com/cristianp6/slim-json-api-helper",
   "license" : [ "Apache-2.0" ],
   "require" : {
     "php" : ">=5.5",
@@ -27,11 +27,11 @@
   },
   "autoload": {
     "psr-4": {
-      "JsonAPI\\": "src/"
+      "JsonApiHelper\\": "src/"
     }
   },
   "support" : {
     "email" : "cristianp6@gmail.com",
-    "issues" : "https://github.com/cristianp6/slim-json-api/issues"
+    "issues" : "https://github.com/cristianp6/slim-json-api-helper/issues"
   }
 }

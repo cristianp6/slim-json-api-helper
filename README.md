@@ -1,4 +1,4 @@
-slim-json-api
+slim-json-api-helper
 =======
 
 
@@ -12,15 +12,15 @@ slim-json-api
 ```php
 
 use Slim\Http\Request as Request;
-use JsonAPI\Renderer as JsonRenderer;
+use JsonApiHelper\Renderer;
 
 $app = new \Slim\App($settings);
 $container = $app->getContainer();
 
 // register the json response and error handlers
-$jsonAPI = new JsonAPI\JsonAPI($app->getContainer());
-$jsonAPI->registerResponseView();
-$jsonAPI->registerErrorHandlers();
+$jsonApiHelper = new JsonApiHelper\JsonApiHelper($app->getContainer());
+$jsonApiHelper->registerResponseView();
+$jsonApiHelper->registerErrorHandlers();
 
 
 $this->post('/users', function (Request $request, Response $response, $args)
